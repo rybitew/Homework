@@ -1,4 +1,4 @@
-package com.example.homework.util;
+package com.example.homework.service;
 
 public enum Gender {
     MALE("MALE"), FEMALE("FEMALE"), INCONCLUSIVE("INCONCLUSIVE");
