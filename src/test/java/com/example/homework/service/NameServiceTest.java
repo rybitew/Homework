@@ -1,6 +1,7 @@
 package com.example.homework.service;
 
 import com.example.homework.exception.InvalidNameException;
+import com.example.homework.exception.InvalidTypeException;
 import com.example.homework.util.FileType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -66,8 +67,9 @@ class NameServiceTest {
     }
 
     @Test
-    void findAllTokens_ThrowNullPointerException_WhenNull() {
-        assertThrows(NullPointerException.class, () -> nameService.findAllTokens(null));
+    void findAllTokens_ThrowInvalidTypeException_WhenTypeNullOrInvalid() {
+        assertThrows(InvalidTypeException.class, () -> nameService.findAllTokens(null));
+        assertThrows(InvalidTypeException.class, () -> nameService.findAllTokens(FileType.INVALID));
     }
 
     @Test
