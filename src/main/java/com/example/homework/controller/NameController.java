@@ -1,6 +1,7 @@
 package com.example.homework.controller;
 
 import com.example.homework.exception.InvalidNameException;
+import com.example.homework.exception.InvalidTypeException;
 import com.example.homework.service.Gender;
 import com.example.homework.service.NameService;
 import com.example.homework.util.FileType;
@@ -25,7 +26,7 @@ public class NameController {
     public ResponseEntity<List<String>> getAllTokens(@PathVariable FileType type) {
         try {
             return ResponseEntity.ok(service.findAllTokens(type));
-        } catch (NullPointerException e) {
+        } catch (InvalidTypeException e) {
             return ResponseEntity.badRequest().build();
         } catch (Exception e) {
             return ResponseEntity.status(500).build();

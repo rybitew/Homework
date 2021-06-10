@@ -1,5 +1,8 @@
 package com.example.homework.util;
 
+import com.example.homework.exception.InvalidNameException;
+import com.example.homework.exception.InvalidTypeException;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -28,12 +31,15 @@ public class FileUtil {
     }
 
     public long countInFile(Collection<String> toFind, FileType type) throws IOException {
+        if (toFind == null) throw new InvalidNameException();
+        if (type == null || type.equals(FileType.INVALID)) throw new InvalidTypeException();
         try (Stream<String> lines = Files.lines(Paths.get(getFileName(type)))) {
             return lines.distinct().filter(token -> toFind.contains(token.toLowerCase())).count();
         }
     }
 
     public List<String> readAllTokens(FileType type) throws IOException {
+        if (type == null || type.equals(FileType.INVALID)) throw new InvalidTypeException();
         return Files.readAllLines(Paths.get(getFileName(type)));
     }
 }

@@ -1,6 +1,7 @@
 package com.example.homework.service;
 
 import com.example.homework.exception.InvalidNameException;
+import com.example.homework.exception.InvalidTypeException;
 import com.example.homework.util.FileType;
 import com.example.homework.util.FileUtil;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class NameService {
     }
 
     public List<String> findAllTokens(FileType type) throws IOException {
-        if (type == null || type.equals(FileType.INVALID)) throw new NullPointerException();
+        if (type == null || type.equals(FileType.INVALID)) throw new InvalidTypeException();
         return fileUtil.readAllTokens(type);
     }
 
