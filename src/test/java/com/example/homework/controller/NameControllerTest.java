@@ -68,38 +68,29 @@ class NameControllerTest {
     }
 
     @Test
-    void identifyGenderFirstName_ReturnMale200_WhenMaleName() throws Exception {
+    void identifyGenderByName_ReturnMale200_WhenMaleAndFirstName() throws Exception {
         when(service.identifyGenderByFirstName("wojciech")).thenReturn(Gender.MALE);
 
-        this.mockMvc.perform(get("/identify/first-name/wojciech"))
+        this.mockMvc.perform(get("/identify/first/wojciech"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("\"MALE\""));
     }
 
     @Test
-    void identifyGenderFirstName_Return400_WhenNameBlank() throws Exception {
+    void identifyGenderByName_Return400_WhenBlankAndFirst() throws Exception {
         when(service.identifyGenderByFirstName(" ")).thenThrow(InvalidNameException.class);
         when(service.identifyGenderByFirstName(null)).thenThrow(InvalidNameException.class);
 
-        this.mockMvc.perform(get("/identify/first-name/ "))
+        this.mockMvc.perform(get("/identify/first/ "))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    void identifyGenderFullName_ReturnMale200_WhenMaleName() throws Exception {
+    void identifyGenderByName_ReturnMale200_WhenMaleAndFullName() throws Exception {
         when(service.identifyGenderByFullName("wojciech")).thenReturn(Gender.MALE);
 
-        this.mockMvc.perform(get("/identify/full-name/wojciech"))
+        this.mockMvc.perform(get("/identify/full/wojciech"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("\"MALE\""));
-    }
-
-    @Test
-    void identifyGenderFullName_Return400_WhenNameBlank() throws Exception {
-        when(service.identifyGenderByFullName(" ")).thenThrow(InvalidNameException.class);
-        when(service.identifyGenderByFullName(null)).thenThrow(InvalidNameException.class);
-
-        this.mockMvc.perform(get("/identify/full-name/ "))
-                .andExpect(status().isBadRequest());
     }
 }

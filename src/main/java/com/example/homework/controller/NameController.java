@@ -15,6 +15,10 @@ import java.util.List;
 
 @Controller
 public class NameController {
+    public enum DetectionType {
+        FULL, FIRST, INVALID
+    }
+
     private final NameService service;
 
     @Autowired
@@ -33,22 +37,18 @@ public class NameController {
         }
     }
 
-    @GetMapping("/identify/first-name/{name}")
-    public ResponseEntity<Gender> identifyGenderFirstName(@PathVariable String name) {
+    @GetMapping("/identify/{type}/{name}")
+    public ResponseEntity<Gender> identifyGenderByName(@PathVariable DetectionType type, @PathVariable String name) {
         try {
-            return ResponseEntity.ok(service.identifyGenderByFirstName(name));
-        }catch (InvalidNameException e) {
-            return ResponseEntity.badRequest().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(500).build();
-        }
-    }
-
-    @GetMapping("/identify/full-name/{name}")
-    public ResponseEntity<Gender> identifyGenderFullName(@PathVariable String name) {
-        try {
-            return ResponseEntity.ok(service.identifyGenderByFullName(name));
-        }catch (InvalidNameException e) {
+            switch (type) {
+                case FULL:
+                    return ResponseEntity.ok(service.identifyGenderByFullName(name));
+                case FIRST:
+                    return ResponseEntity.ok(service.identifyGenderByFirstName(name));
+                default:
+                    return ResponseEntity.badRequest().build();
+            }
+        } catch (InvalidNameException e) {
             return ResponseEntity.badRequest().build();
         } catch (Exception e) {
             return ResponseEntity.status(500).build();

@@ -1,5 +1,6 @@
 package com.example.homework.config;
 
+import com.example.homework.util.converter.StringToDetectionTypeConverter;
 import com.example.homework.util.converter.StringToFileTypeConverter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -10,5 +11,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new StringToFileTypeConverter());
+        registry.addConverter(new StringToDetectionTypeConverter());
     }
 }
