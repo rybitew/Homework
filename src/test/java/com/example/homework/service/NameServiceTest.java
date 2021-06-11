@@ -33,7 +33,7 @@ class NameServiceTest {
 
 
     private static final List<String> MALE_CONTENT = List.of("zbigniew", "wojciech", "antoni", "bartosz", "grzegorz", MALE_LOWERCASE, INCONCLUSIVE, MALE_SECOND);
-    private static final List<String> FEMALE_CONTENT = List.of("gertruda", "maria", "olga", "katarzyna", "agata", FEMALE_LOWERCASE, INCONCLUSIVE, FEMALE_SECOND);
+    private static final List<String> FEMALE_CONTENT = List.of("gertruda", "olga", "katarzyna", "agata", FEMALE_LOWERCASE, INCONCLUSIVE, FEMALE_SECOND);
 
     @BeforeAll
     static void init() throws IOException {

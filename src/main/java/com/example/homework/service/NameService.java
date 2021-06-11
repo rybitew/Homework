@@ -6,7 +6,9 @@ import com.example.homework.util.FileType;
 import com.example.homework.util.FileUtil;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -16,9 +18,10 @@ public class NameService {
 
     private final FileUtil fileUtil;
 
-    public NameService() {
-        fileUtil = new FileUtil("female", "male");
+    public NameService() throws FileNotFoundException, URISyntaxException {
+        fileUtil = new FileUtil();
     }
+
     public NameService(String malePath, String femalePath) {
         fileUtil = new FileUtil(femalePath, malePath);
     }

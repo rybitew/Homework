@@ -2,24 +2,34 @@ package com.example.homework.util;
 
 import com.example.homework.exception.InvalidNameException;
 import com.example.homework.exception.InvalidTypeException;
+import org.springframework.util.ResourceUtils;
 
-import java.io.IOException;
+import java.io.*;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
 public class FileUtil {
-    private final String FEMALE_FILE;
-    private final String MALE_FILE;
+    private final File FEMALE_FILE;
+    private final File MALE_FILE;
 
-    public FileUtil(String femalePath, String malePath) {
-        FEMALE_FILE = femalePath;
-        MALE_FILE = malePath;
+    public FileUtil() throws FileNotFoundException, URISyntaxException {
+        MALE_FILE = ResourceUtils.getFile(ResourceUtils.CLASSPATH_URL_PREFIX + "male");
+        FEMALE_FILE = ResourceUtils.getFile(ResourceUtils.CLASSPATH_URL_PREFIX + "female");
+
     }
 
-    private String getFileName(FileType type) {
+    public FileUtil(String femalePath, String malePath) {
+        FEMALE_FILE = new File(femalePath);
+        MALE_FILE = new File(malePath);
+    }
+
+    private File getFileName(FileType type) {
         switch (type) {
             case MALE:
                 return MALE_FILE;
@@ -33,13 +43,26 @@ public class FileUtil {
     public long countInFile(Collection<String> toFind, FileType type) throws IOException {
         if (toFind == null) throw new InvalidNameException();
         if (type == null || type.equals(FileType.INVALID)) throw new InvalidTypeException();
-        try (Stream<String> lines = Files.lines(Paths.get(getFileName(type)))) {
-            return lines.distinct().filter(token -> toFind.contains(token.toLowerCase())).count();
+        try (BufferedReader reader = new BufferedReader(new FileReader(getFileName(type)))) {
+            String line;
+            long count = 0;
+            while ((line = reader.readLine()) != null) {
+                if (toFind.contains(line.toLowerCase())) count++;
+            }
+            return count;
         }
     }
 
     public List<String> readAllTokens(FileType type) throws IOException {
         if (type == null || type.equals(FileType.INVALID)) throw new InvalidTypeException();
-        return Files.readAllLines(Paths.get(getFileName(type)));
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(getFileName(type)))) {
+            String line;
+            List<String> tokens = new LinkedList<>();
+            while ((line = reader.readLine()) != null) {
+                tokens.add(line);
+            }
+            return tokens;
+        }
     }
 }
