@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.5.0'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'java-library'
 }
 
 group = 'com.example'
@@ -13,15 +14,22 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    api 'org.springframework.boot:spring-boot-starter'
+    api 'org.springframework.boot:spring-boot-starter-web'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.7.2"
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.2")
 
 }
 
 test {
     useJUnitPlatform()
+}
+
+
+jar {
+    manifest {
+        attributes "Main-Class": "com.example.homework.HomeworkApplication"
+    }
 }
