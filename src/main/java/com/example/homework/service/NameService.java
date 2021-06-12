@@ -4,6 +4,7 @@ import com.example.homework.exception.InvalidNameException;
 import com.example.homework.exception.InvalidTypeException;
 import com.example.homework.util.FileType;
 import com.example.homework.util.FileUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
@@ -18,8 +19,9 @@ public class NameService {
 
     private final FileUtil fileUtil;
 
-    public NameService() throws FileNotFoundException, URISyntaxException {
-        fileUtil = new FileUtil();
+    @Autowired
+    public NameService(FileUtil fileUtil) {
+        this.fileUtil = fileUtil;
     }
 
     public NameService(String malePath, String femalePath) {

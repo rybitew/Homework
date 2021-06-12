@@ -33,6 +33,7 @@ public class NameController {
         } catch (InvalidTypeException e) {
             return ResponseEntity.badRequest().build();
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(500).build();
         }
     }
@@ -51,6 +52,7 @@ public class NameController {
         } catch (InvalidNameException e) {
             return ResponseEntity.badRequest().build();
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(500).build();
         }
     }
