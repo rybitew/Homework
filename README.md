@@ -1,5 +1,5 @@
 # Homework
-Recrutation task - simple application detecting the gender based on the name.
+Recruitment task - simple application detecting the gender based on the name.
 Docker image is available on https://hub.docker.com/r/rybitew/homework
 
 ## Endpoints
